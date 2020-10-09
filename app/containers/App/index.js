@@ -19,16 +19,17 @@ function App({ role }) {
   const dataRoute = useFilterMap(role);
   const renderRoute = () => {
     let result = null;
-    // filter
-    result = dataRoute.map((route, index) => (
-      <PrivateRoute
-        key={index}
-        key={route.name}
-        path={route.path}
-        exact={route.exact}
-        component={route.component}
-      />
-    ));
+    //filter
+    result = dataRoute.map((route, index) => {
+      return (
+        <PrivateRoute
+          key={index}
+          path={route.path}
+          exact={route.exact}
+          component={route.component}
+        />
+      );
+    });
     return result;
   };
   return (
@@ -37,7 +38,7 @@ function App({ role }) {
         <Route exact path="/login">
           <LoginPage />
         </Route>
-        <Switch>{renderRoute()}</Switch>
+        <Layouts>{renderRoute()}</Layouts>
       </Switch>
     </Router>
   );

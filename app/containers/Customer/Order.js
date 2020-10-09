@@ -17,6 +17,7 @@ import { subtotal } from 'utils/helpers';
 import { useHistory } from 'react-router-dom';
 import { getMenu } from './actions';
 import { makeSelectMenu } from './selectors';
+import { makeSelectRole } from '../App/selectors';
 const useStyles = makeStyles({
   table: {
     Width: '100%',
@@ -35,7 +36,6 @@ function Order(props) {
   useEffect(() => {
     getListMenu();
   }, []);
-
   const handClickRow = row => {
     const dataInRows = listMenu.filter(item => item.name === row.name)[0];
     if (!dataInRows.orderName) {
@@ -154,6 +154,7 @@ function Order(props) {
 
 const mapStateToProps = createStructuredSelector({
   listMenu: makeSelectMenu(),
+  role: makeSelectRole(),
 });
 
 export function mapDispatchToProps(dispatch) {

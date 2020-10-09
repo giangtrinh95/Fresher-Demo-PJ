@@ -17,7 +17,12 @@ export const initialState = {
   isLoggin: false,
   loading: false,
   error: false,
-  userRoles: [],
+  userRoles: [
+    {
+      module: 'report',
+      permissions: ['view', 'update', 'export'],
+    },
+  ],
   role: '',
 };
 

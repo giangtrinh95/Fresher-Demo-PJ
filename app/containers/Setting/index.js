@@ -60,11 +60,7 @@ function Setting({ role, userRoles, listRoles }) {
       );
     });
   };
-  const renderListModule = () => {
-    return listRoles.map(item => {
-      return;
-    });
-  };
+
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -93,6 +89,15 @@ function Setting({ role, userRoles, listRoles }) {
               <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
                   {row.name}
+                </TableCell>
+                <TableCell align="right">
+                  <CheckBox />
+                </TableCell>
+                <TableCell align="right">
+                  <CheckBox />
+                </TableCell>
+                <TableCell align="right">
+                  <CheckBox />
                 </TableCell>
               </TableRow>
             ))}

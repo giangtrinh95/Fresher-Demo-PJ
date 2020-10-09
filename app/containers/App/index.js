@@ -14,14 +14,19 @@ import useFilterMap from '../../components/hooks/useFilterMap';
 import PrivateRoute from './PrivateRoute';
 import { makeSelectRole } from './selectors';
 import Layouts from '../Layouts/Loadable';
-import { getCurrentUser } from './actions';
-function App({ role, getUserRoles }) {
-  const location = useLocation();
-  const dataRoute = useFilterMap(role);
+import { getCurrentUser, loginSuccess } from './actions';
+import { useInjectSaga } from 'utils/injectSaga';
+import saga from './saga';
 
+function App({ role, getUserRoles, autoLogin }) {
+  useInjectSaga({ key: 'global', saga });
+  const dataRoute = useFilterMap(role);
   useEffect(() => {
-    const userRoles = JSON.parse(localStorage.getItem('userRoles'));
-    getUserRoles(userRoles);
+    const token = localStorage.getItem('token');
+    if (token) {
+      autoLogin(token);
+      getUserRoles();
+    }
   }, []);
   const renderRoute = () => {
     let result = null;
@@ -59,7 +64,8 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUserRoles: data => dispatch(getCurrentUser(data)),
+    getUserRoles: () => dispatch(getCurrentUser()),
+    autoLogin: data => dispatch(loginSuccess(data)),
   };
 };
 const withConnect = connect(

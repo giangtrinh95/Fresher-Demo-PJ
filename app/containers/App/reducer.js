@@ -11,18 +11,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILED,
   GET_CURRENT_USER,
+  GET_CURRENT_USER_SUCCESS,
 } from './constants';
 export const initialState = {
   username: '',
   isLoggin: false,
   loading: false,
   error: false,
-  userRoles: [
-    {
-      module: 'report',
-      permissions: ['view', 'update', 'export'],
-    },
-  ],
+  userRoles: [],
   role: '',
 };
 
@@ -52,6 +48,9 @@ const appReducer = (state = initialState, action) =>
         draft.isLoggin = false;
         break;
       case GET_CURRENT_USER:
+        // const
+        break;
+      case GET_CURRENT_USER_SUCCESS:
         const { userRole } = action.payload;
         // const
         draft.userRoles = userRole;
@@ -61,7 +60,7 @@ const appReducer = (state = initialState, action) =>
         draft.username = '';
         draft.role = '';
         draft.isLoggin = false;
-        draft.userRoles = [];
+        draft.userRoles = null;
     }
   });
 

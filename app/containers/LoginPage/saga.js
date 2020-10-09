@@ -1,5 +1,9 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-import { loginFailed, loginSuccess } from './../App/actions';
+import {
+  getCurrentUserSuccess,
+  loginFailed,
+  loginSuccess,
+} from './../App/actions';
 import { LOGIN } from './../App/constants';
 import request from 'utils/request';
 
@@ -22,6 +26,7 @@ export function* loginSaga({ payload }) {
     localStorage.setItem('token', resp.token);
     localStorage.setItem('userRoles', userRoles);
     yield put(loginSuccess(resp.token));
+    yield put(getCurrentUserSuccess(userRoles));
   } catch (error) {
     yield put(loginFailed(error));
   }

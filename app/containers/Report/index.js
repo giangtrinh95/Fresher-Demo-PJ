@@ -25,9 +25,12 @@ import {
   makeSelectMoneyDay,
   makeSelectReportTotal,
 } from './selectors';
+import { checkUseRole } from 'utils/helpers';
+import { makeSelectuserRoles } from '../App/selectors';
+import { Button } from '@material-ui/core';
 
 const key = 'report';
-const Report = ({ onLoad, reportData, onSearch, reportTotal }) => {
+const Report = ({ onLoad, reportData, onSearch, reportTotal, useRole }) => {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   useEffect(() => {
@@ -36,6 +39,10 @@ const Report = ({ onLoad, reportData, onSearch, reportTotal }) => {
       res;
     };
   }, []);
+
+  const exportShow = checkUseRole('report', 'export', useRole);
+  const updateShow = checkUseRole('report', 'update', useRole);
+  const deleteShow = checkUseRole('report', 'delete', useRole);
 
   const [keyword, setKeyWord] = useState('');
   const [filterDate, setFilterDate] = useState({
@@ -127,6 +134,15 @@ const Report = ({ onLoad, reportData, onSearch, reportTotal }) => {
             <DatePickerBox onChange={handleChangeFilter} name="endDate" />
           </Grid>
 
+          <Grid>
+            {exportShow ? (
+              <Button variant="contained" color="primary">
+                Export
+              </Button>
+            ) : (
+              ''
+            )}
+          </Grid>
           {/* <select
             onChange={onSelectValue}
             style={{
@@ -144,7 +160,11 @@ const Report = ({ onLoad, reportData, onSearch, reportTotal }) => {
           </select> */}
         </Grid>
         <Grid item lg={12} sm={12} xl={12} xs={12}>
-          <ReportTable reportData={reportData} />
+          <ReportTable
+            reportData={reportData}
+            updateShow={updateShow}
+            deleteShow={deleteShow}
+          />
         </Grid>
       </Grid>
     </div>
@@ -156,12 +176,14 @@ Report.propTypes = {
   reportData: PropTypes.array,
   onSearch: PropTypes.any,
   reportTotal: PropTypes.array,
+  useRole: PropTypes.oneOfType([PropTypes.array, PropTypes.any]),
 };
 
 const mapStateToProps = createStructuredSelector({
   reportData: makeSelectAllReport(),
   moneyDay: makeSelectMoneyDay(),
   reportTotal: makeSelectReportTotal(),
+  useRole: makeSelectuserRoles(),
 });
 
 const mapDispatchToProps = dispatch => ({

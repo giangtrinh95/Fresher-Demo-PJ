@@ -41,3 +41,17 @@ export function totalOrderOfDay(orders) {
   }
   return 0;
 }
+
+export const checkUseRole = (module, action, useRole) => {
+
+  let flag = false;
+  useRole.filter(res => {
+    if (res.module === module) {
+      if (res.permissions.indexOf(action.toString()) !== -1) {
+        flag = true;
+      }
+    }
+  });
+  return flag;
+  // console.log(module);
+};

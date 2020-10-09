@@ -13,12 +13,13 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import { momentDateTime } from 'utils/helpers';
 import { Link as routerLink } from 'react-router-dom';
 import { compose } from 'redux';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 ReportTable.propTypes = {
   reportData: PropTypes.array,
 };
 
-function ReportTable({ reportData }) {
+function ReportTable({ reportData, updateShow, deleteShow }) {
   console.log('renderTable');
   const renderTable = res => {
     let xhtml = null;
@@ -44,6 +45,15 @@ function ReportTable({ reportData }) {
                 <VisibilityIcon />
               </IconButton>
             </Tooltip>
+            {deleteShow ? (
+              <Tooltip title="delete" className="View__Button">
+                <IconButton aria-label="delete">
+                  <DeleteForeverIcon />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              ''
+            )}
           </TableCell>
         </TableRow>
       );

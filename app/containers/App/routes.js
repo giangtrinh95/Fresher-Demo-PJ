@@ -45,7 +45,7 @@ const routes = [
     show: 0,
   },
   {
-    path: '', //Last route
+    path: '*', // Last route
     name: 'NotFoundPage',
     role: ['admin', 'member'],
     exact: false,

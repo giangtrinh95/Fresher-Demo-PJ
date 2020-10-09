@@ -7,9 +7,10 @@ const URL = 'http://localhost:3001';
 function* getReportSaga({ payload }) {
   const { id } = payload;
   const requestURL = `${URL}/order/${id}`;
+  console.log(id);
   try {
     const repos = yield call(request, requestURL);
-    //console.log(repos)
+    // console.log(repos)
     yield put(getReportSuccess(repos));
   } catch (err) {
     yield put(getReportError(err));

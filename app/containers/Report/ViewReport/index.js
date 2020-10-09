@@ -29,6 +29,7 @@ function ViewReport(props) {
 
   const { onLoad, match, history, report } = props;
 
+  console.log(props);
   useEffect(() => {
     const res = onLoad(match.params.id);
     return () => {
@@ -56,13 +57,11 @@ function ViewReport(props) {
 const mapStateToProps = createStructuredSelector({
   report: makeSelectReport(),
 });
-const mapDispatchToProps = dispatch => {
-  return {
-    onLoad: id => {
-      dispatch(getReportRequest(id));
-    },
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onLoad: id => {
+    dispatch(getReportRequest(id));
+  },
+});
 
 const withConnect = connect(
   mapStateToProps,

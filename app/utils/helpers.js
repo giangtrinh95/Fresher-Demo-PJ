@@ -1,6 +1,8 @@
 import moment from 'moment';
 
 export const api = 'http://localhost:3000/';
+export const formatVND = number =>
+  number.toLocaleString('vi', { style: 'currency', currency: 'VND' });
 
 export function subtotal(reports) {
   let sum = 0;
@@ -9,15 +11,10 @@ export function subtotal(reports) {
       sum += element.total;
     }
   });
-  return sum;
+  return formatVND(sum);
 }
 
-export const formatVND = number => {
-  return number.toLocaleString('vi', { style: 'currency', currency: 'VND' });
-};
-export const momentDateTime = date => {
-  return moment(date).format('MM/DD/YYYY, h:mm');
-};
+export const momentDateTime = date => moment(date).format('MM/DD/YYYY, h:mm');
 
 export function totalReportOfDay(orders) {
   const dateNow = moment().format('YYYY-MM-DDT00:00');

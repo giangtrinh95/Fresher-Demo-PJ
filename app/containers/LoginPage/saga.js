@@ -22,8 +22,8 @@ export function* loginSaga({ payload }) {
 
   try {
     const resp = yield call(request, requestURL, requestOptions);
-    const userRoles = JSON.stringify(resp.userRoles);
-    localStorage.setItem('token', resp.token);
+    const { token, userRoles } = resp;
+    localStorage.setItem('token', token);
     localStorage.setItem('userRoles', userRoles);
     yield put(loginSuccess(resp.token));
     yield put(getCurrentUserSuccess(userRoles));

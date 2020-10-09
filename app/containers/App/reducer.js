@@ -20,6 +20,16 @@ export const initialState = {
   error: false,
   userRoles: [],
   role: '',
+  listRoles: [
+    {
+      role: 'admin',
+      permissions: ['view', 'update', 'export'],
+    },
+    {
+      role: 'member',
+      permissions: ['view'],
+    },
+  ],
 };
 
 /* eslint-disable default-case, no-param-reassign */

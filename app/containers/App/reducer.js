@@ -56,6 +56,7 @@ const appReducer = (state = initialState, action) =>
         draft.username = '';
         draft.role = '';
         draft.isLoggin = false;
+        draft.userRoles = [];
     }
   });
 

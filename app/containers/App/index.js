@@ -1,29 +1,18 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
-
-import React, { useEffect } from 'react';
+import LoginPage from 'containers/LoginPage/Loadable';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
 import {
-  Switch,
-  Route,
   BrowserRouter as Router,
+  Route,
+  Switch,
   useLocation,
 } from 'react-router-dom';
-import LoginPage from 'containers/LoginPage/Loadable';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import { makeSelectRole } from './selectors';
-import PrivateRoute from './privateRoute';
-import GlobalStyle from '../../global-styles';
-import Layouts from '../Layouts';
 import useFilterMap from '../../components/hooks/useFilterMap';
+import PrivateRoute from './privateRoute';
+import { makeSelectRole } from './selectors';
 
 function App({ role }) {
   const location = useLocation();

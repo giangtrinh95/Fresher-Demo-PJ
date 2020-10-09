@@ -30,7 +30,7 @@ function* getAllReportSaga() {
 function* getQueryReportSaga({ payload }) {
   yield delay(500);
   const { keyword, startDate, endDate } = payload;
-  if (keyword) {
+  if (keyword && keyword.trim()) {
     const requestURL = `${URL}/order?q=${keyword}`;
     try {
       const repos = yield call(request, requestURL);
@@ -45,11 +45,7 @@ function* getQueryReportSaga({ payload }) {
     } catch (err) {
       yield put(getQueryReportError(err));
     }
-  } else if (
-    keyword === '' &&
-    startDate !== 'undefined' &&
-    endDate !== 'undefined'
-  ) {
+  } else if (keyword === '' && startDate && endDate) {
     if (startDate <= endDate) {
       const requestURL = `${URL}/order?q=${keyword}`;
       try {

@@ -1,9 +1,3 @@
-/**
- *
- * Layouts
- *
- */
-
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
@@ -24,7 +18,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import useStyles from './styles';
 import {
   Switch,
   Route,
@@ -32,10 +25,11 @@ import {
   Link as routerLink,
   useLocation,
 } from 'react-router-dom';
-import { makeSelectRole, makeSelectUsername } from '../App/selectors';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Button } from '@material-ui/core';
+import { makeSelectRole, makeSelectUsername } from '../App/selectors';
+import useStyles from './styles';
 import { logout } from '../App/actions';
 import useFilterMap from '../../components/hooks/useFilterMap';
 
@@ -153,11 +147,9 @@ const mapStateToProps = createStructuredSelector({
   name: makeSelectUsername(),
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogout: () => dispatch(logout()),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onLogout: () => dispatch(logout()),
+});
 const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,

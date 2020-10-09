@@ -4,8 +4,8 @@
  *
  */
 import produce from 'immer';
-import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAILED } from './constants';
 import jwt_decode from 'jwt-decode';
+import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAILED } from './constants';
 export const initialState = {
   username: '',
   isLoggin: false,
@@ -21,7 +21,7 @@ const appReducer = (state = initialState, action) =>
       case LOGIN:
         draft.loading = true;
         draft.error = false;
-        draft.isLoggin = false;
+        // draft.isLoggin = false;
         break;
       case LOGIN_SUCCESS:
         const { data } = action.payload;

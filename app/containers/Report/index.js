@@ -8,6 +8,7 @@ import { subtotal, totalOrderOfDay, totalReportOfDay } from 'utils/helpers';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import DatePickerBox from '../../components/DatePicker';
+import Pagination from '../../components/Pagination';
 import SearchInput from '../../components/SearchIput';
 import TextBox from '../../components/TextBox';
 import {

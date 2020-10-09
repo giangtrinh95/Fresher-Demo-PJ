@@ -17,12 +17,7 @@ export const initialState = {
   isLoggin: false,
   loading: false,
   error: false,
-  userRoles: [
-    {
-      module: 'report',
-      permissions: ['view', 'update'],
-    },
-  ],
+  userRoles: [],
   role: '',
 };
 
@@ -52,8 +47,9 @@ const appReducer = (state = initialState, action) =>
         draft.isLoggin = false;
         break;
       case GET_CURRENT_USER:
+        const { userRole } = action.payload;
         // const
-        draft.userRoles = data.userRoles;
+        draft.userRoles = userRole;
         break;
       case LOGOUT:
         localStorage.clear('token');

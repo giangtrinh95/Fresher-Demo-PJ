@@ -1,4 +1,10 @@
-import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAILED } from './constants';
+import {
+  LOGIN,
+  LOGOUT,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  GET_CURRENT_USER,
+} from './constants';
 
 export function login(data) {
   return {
@@ -24,11 +30,11 @@ export function loginFailed(error) {
     },
   };
 }
-export function getCurrentUser(data) {
+export function getCurrentUser(userRole) {
   return {
     type: GET_CURRENT_USER,
     payload: {
-      data,
+      userRole,
     },
   };
 }

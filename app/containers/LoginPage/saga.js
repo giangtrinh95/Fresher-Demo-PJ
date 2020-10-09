@@ -18,9 +18,10 @@ export function* loginSaga({ payload }) {
 
   try {
     const resp = yield call(request, requestURL, requestOptions);
+    const userRoles = JSON.stringify(resp.userRoles);
     localStorage.setItem('token', resp.token);
-    localStorage.setItem('userRoles', [resp.userRoles]);
-    yield put(loginSuccess(resp));
+    localStorage.setItem('userRoles', userRoles);
+    yield put(loginSuccess(resp.token));
   } catch (error) {
     yield put(loginFailed(error));
   }

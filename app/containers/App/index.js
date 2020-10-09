@@ -11,9 +11,9 @@ import {
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import useFilterMap from '../../components/hooks/useFilterMap';
-import PrivateRoute from './privateRoute';
+import PrivateRoute from './PrivateRoute';
 import { makeSelectRole } from './selectors';
-
+import Layouts from '../Layouts/Loadable';
 function App({ role }) {
   const location = useLocation();
   const dataRoute = useFilterMap(role);

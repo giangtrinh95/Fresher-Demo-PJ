@@ -5,12 +5,24 @@
  */
 import produce from 'immer';
 import jwt_decode from 'jwt-decode';
-import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAILED } from './constants';
+import {
+  LOGIN,
+  LOGOUT,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  GET_CURRENT_USER,
+} from './constants';
 export const initialState = {
   username: '',
   isLoggin: false,
   loading: false,
   error: false,
+  userRoles: [
+    {
+      module: 'report',
+      permissions: ['view', 'update'],
+    },
+  ],
   role: '',
 };
 
@@ -38,6 +50,10 @@ const appReducer = (state = initialState, action) =>
         draft.loading = false;
         draft.error = error.message;
         draft.isLoggin = false;
+        break;
+      case GET_CURRENT_USER:
+        // const
+        draft.userRoles = data.userRoles;
         break;
       case LOGOUT:
         localStorage.clear('token');

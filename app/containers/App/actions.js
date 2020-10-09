@@ -24,7 +24,14 @@ export function loginFailed(error) {
     },
   };
 }
-
+export function getCurrentUser(data) {
+  return {
+    type: GET_CURRENT_USER,
+    payload: {
+      data,
+    },
+  };
+}
 export const logout = () => {
   return {
     type: LOGOUT,

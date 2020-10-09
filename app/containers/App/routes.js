@@ -6,6 +6,7 @@ import Report from 'containers/Report';
 import ViewReport from 'containers/Report/ViewReport';
 import React from 'react';
 import Order from '../Customer/Order';
+import Setting from '../Setting';
 const routes = [
   {
     path: '/dashboard',
@@ -41,6 +42,15 @@ const routes = [
     exact: false,
     role: ['admin'],
     component: ViewReport,
+    show: 0,
+  },
+  {
+    path: '/setting',
+    name: 'Setting',
+    icon: <MailIcon />,
+    exact: false,
+    role: ['admin'],
+    component: Setting,
     show: 0,
   },
   // {

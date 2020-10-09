@@ -17,6 +17,8 @@ import Layouts from '../Layouts/Loadable';
 function App({ role }) {
   const location = useLocation();
   const dataRoute = useFilterMap(role);
+
+  // useEffect(() => {}, []);
   const renderRoute = () => {
     let result = null;
     //filter
@@ -38,7 +40,9 @@ function App({ role }) {
         <Route exact path="/login">
           <LoginPage />
         </Route>
-        <Layouts>{renderRoute()}</Layouts>
+        <Layouts>
+          <Switch>{renderRoute()}</Switch>
+        </Layouts>
       </Switch>
     </Router>
   );

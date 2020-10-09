@@ -12,7 +12,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import useFilterMap from '../../components/hooks/useFilterMap';
 import PrivateRoute from './PrivateRoute';
-import { makeSelectRole } from './selectors';
+import { makeSelectRoleRoute } from './selectors';
 import Layouts from '../Layouts/Loadable';
 import { getCurrentUser, loginSuccess } from './actions';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -59,7 +59,7 @@ App.propTypes = {
   role: PropTypes.string,
 };
 const mapStateToProps = createStructuredSelector({
-  role: makeSelectRole(),
+  role: makeSelectRoleRoute(),
 });
 
 const mapDispatchToProps = dispatch => {

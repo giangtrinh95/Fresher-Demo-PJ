@@ -12,6 +12,8 @@ import {
   LOGIN_FAILED,
   GET_CURRENT_USER,
   GET_CURRENT_USER_SUCCESS,
+  GET_SELECT_PERMISSIONS,
+  GET_SELECT_PERMISSIONS_SUCCESS,
 } from './constants';
 export const initialState = {
   username: '',
@@ -23,13 +25,40 @@ export const initialState = {
   listRoles: [
     {
       role: 'admin',
-      permissions: ['view', 'update', 'export'],
+      permissions: [
+        {
+          module: 'Customer',
+          view: true,
+          update: true,
+          export: true,
+        },
+        {
+          module: 'Reports',
+          view: true,
+          update: true,
+          export: true,
+        },
+      ],
     },
     {
       role: 'member',
-      permissions: ['view'],
+      permissions: [
+        {
+          module: 'Customer',
+          view: true,
+          update: false,
+          export: false,
+        },
+        {
+          module: 'Reports',
+          view: false,
+          update: true,
+          export: false,
+        },
+      ],
     },
   ],
+  selectRoles: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -65,12 +94,23 @@ const appReducer = (state = initialState, action) =>
         // const
         draft.userRoles = userRole;
         break;
+      case GET_SELECT_PERMISSIONS:
+        // const
+        break;
+      case GET_SELECT_PERMISSIONS_SUCCESS:
+        const { roleSuccess } = action.payload;
+        const result = draft.listRoles.filter(
+          item => item.role === roleSuccess,
+        );
+        draft.selectRoles = result;
+        break;
       case LOGOUT:
         localStorage.clear('token');
         draft.username = '';
         draft.role = '';
         draft.isLoggin = false;
         draft.userRoles = null;
+        break;
     }
   });
 

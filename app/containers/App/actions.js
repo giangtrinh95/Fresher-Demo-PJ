@@ -5,6 +5,8 @@ import {
   LOGIN_FAILED,
   GET_CURRENT_USER,
   GET_CURRENT_USER_SUCCESS,
+  GET_SELECT_PERMISSIONS,
+  GET_SELECT_PERMISSIONS_SUCCESS,
 } from './constants';
 
 export function login(data) {
@@ -41,6 +43,22 @@ export function getCurrentUserSuccess(userRole) {
     type: GET_CURRENT_USER_SUCCESS,
     payload: {
       userRole,
+    },
+  };
+}
+export function getSelectPermissions(role) {
+  return {
+    type: GET_SELECT_PERMISSIONS,
+    payload: {
+      role,
+    },
+  };
+}
+export function getSelectPermissionsSuccess(roleSuccess) {
+  return {
+    type: GET_SELECT_PERMISSIONS_SUCCESS,
+    payload: {
+      roleSuccess,
     },
   };
 }

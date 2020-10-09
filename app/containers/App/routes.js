@@ -2,11 +2,11 @@ import MailIcon from '@material-ui/icons/Mail';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Dashboard from 'containers/Dashboard';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Report from 'containers/Report';
+import Report from 'containers/Report/Loadable';
 import ViewReport from 'containers/Report/ViewReport';
 import React from 'react';
-import Order from '../Customer/Order';
-import Setting from 'containers/Setting';
+import Order from 'containers/Customer/Loadable';
+import Setting from 'containers/Setting/Loadable';
 const routes = [
   {
     path: '/dashboard',

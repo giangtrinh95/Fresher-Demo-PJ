@@ -1,37 +1,30 @@
-import React, { memo } from 'react';
-import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import clsx from 'clsx';
-import { useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { Button } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
-import {
-  Switch,
-  Route,
-  BrowserRouter as Router,
-  Link as routerLink,
-  useLocation,
-} from 'react-router-dom';
+import { useTheme } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MenuIcon from '@material-ui/icons/Menu';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React, { memo } from 'react';
 import { connect } from 'react-redux';
+import { Link as routerLink } from 'react-router-dom';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Button } from '@material-ui/core';
-import { makeSelectRole, makeSelectUsername } from '../App/selectors';
-import useStyles from './styles';
-import { logout } from '../App/actions';
 import useFilterMap from '../../components/hooks/useFilterMap';
+import { logout } from '../App/actions';
+import { makeSelectRoleRoute, makeSelectUsername } from '../App/selectors';
+import useStyles from './styles';
 
 function Layouts(props) {
   const classes = useStyles();
@@ -143,7 +136,7 @@ Layouts.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  role: makeSelectRole(),
+  role: makeSelectRoleRoute(),
   name: makeSelectUsername(),
 });
 

@@ -25,7 +25,7 @@ const makeSelectUsername = () =>
     selectGlobal,
     globalState => globalState.username,
   );
-const makeSelectRole = () =>
+const makeSelectRoleRoute = () =>
   createSelector(
     selectGlobal,
     globalState => globalState.role,
@@ -55,20 +55,19 @@ const makeSelectuserRoles = () =>
     selectGlobal,
     globalState => globalState.userRoles,
   );
-const makeSelectListRoles = () =>
+const makeSelectRoles = () =>
   createSelector(
     selectGlobal,
-    globalState => globalState.listRoles,
+    globalState => globalState.selectRoles,
   );
-
 export {
   selectGlobal,
   makeSelectUsername,
-  makeSelectRole,
+  makeSelectRoleRoute,
   makeSelectLoading,
   makeSelectError,
   makeSelectIsLoggin,
   makeSelectAccessControl,
   makeSelectuserRoles,
-  makeSelectListRoles,
+  makeSelectRoles,
 };

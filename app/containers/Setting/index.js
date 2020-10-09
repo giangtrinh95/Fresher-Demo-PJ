@@ -1,5 +1,4 @@
-import React, { memo } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { memo, useEffect, useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,7 +6,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import CheckBox from 'components/UserRoles';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -15,50 +13,26 @@ import {
   makeSelectRole,
   makeSelectuserRoles,
   makeSelectListRoles,
+  makeSelectRoles,
+  makeSelectRoleRoute,
 } from '../App/selectors';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { getSelectPermissions } from '../App/actions';
+import CheckBoxSetting from '../../components/CheckBox';
+import { useInjectSaga } from 'utils/injectSaga';
+import saga from './../App/saga';
+import useStyles from './style';
 
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  table: {
-    minWidth: 650,
-  },
-  module: {
-    color: 'cyan',
-  },
-}));
-function createData(name) {
-  return { name };
-}
-
-const rows = [createData('Customer'), createData('Report')];
-
-function Setting({ role, userRoles, listRoles }) {
+function Setting({ roleRoute, selectRoles, selectRolePermissions }) {
+  useInjectSaga({ key: 'global', saga });
   const classes = useStyles();
-  const [selectRole, setSelectRole] = React.useState('');
+  const [role, setRole] = React.useState('');
   const handleChange = event => {
-    console.log(event.target.value);
-    setSelectRole(event.target.value);
-  };
-
-  const renderListRoles = () => {
-    return listRoles.map((item, index) => {
-      return (
-        <MenuItem value={item.role} key={index}>
-          {item.role}
-        </MenuItem>
-      );
-    });
+    setRole(event.target.value);
+    selectRolePermissions(event.target.value);
   };
 
   return (
@@ -68,10 +42,11 @@ function Setting({ role, userRoles, listRoles }) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={selectRole}
+          value={role}
           onChange={handleChange}
         >
-          {renderListRoles()}
+          <MenuItem value="admin">Admin</MenuItem>
+          <MenuItem value="member">Member</MenuItem>
         </Select>
       </FormControl>
       <TableContainer component={Paper}>
@@ -85,22 +60,7 @@ function Setting({ role, userRoles, listRoles }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">
-                  <CheckBox />
-                </TableCell>
-                <TableCell align="right">
-                  <CheckBox />
-                </TableCell>
-                <TableCell align="right">
-                  <CheckBox />
-                </TableCell>
-              </TableRow>
-            ))}
+            <CheckBoxSetting selectRoles={selectRoles} role={role} />
           </TableBody>
         </Table>
       </TableContainer>
@@ -109,14 +69,18 @@ function Setting({ role, userRoles, listRoles }) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  role: makeSelectRole(),
+  roleRoute: makeSelectRoleRoute(),
   userRoles: makeSelectuserRoles(),
-  listRoles: makeSelectListRoles(),
+  selectRoles: makeSelectRoles(),
 });
-
+const mapDispatchToProps = dispatch => {
+  return {
+    selectRolePermissions: data => dispatch(getSelectPermissions(data)),
+  };
+};
 const withConnect = connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 );
 
 export default compose(

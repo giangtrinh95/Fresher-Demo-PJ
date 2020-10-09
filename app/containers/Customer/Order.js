@@ -17,7 +17,7 @@ import { subtotal } from 'utils/helpers';
 import { useHistory } from 'react-router-dom';
 import { getMenu } from './actions';
 import { makeSelectMenu } from './selectors';
-import { makeSelectRole } from '../App/selectors';
+import { makeSelectRoleRoute } from '../App/selectors';
 const useStyles = makeStyles({
   table: {
     Width: '100%',
@@ -154,7 +154,7 @@ function Order(props) {
 
 const mapStateToProps = createStructuredSelector({
   listMenu: makeSelectMenu(),
-  role: makeSelectRole(),
+  role: makeSelectRoleRoute(),
 });
 
 export function mapDispatchToProps(dispatch) {

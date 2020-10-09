@@ -24,7 +24,7 @@ import PropTypes from 'prop-types';
 import {
   makeSelectIsLoggin,
   makeSelectLoading,
-  makeSelectRole,
+  makeSelectRoleRoute,
 } from './../App/selectors';
 import useStyles from './styles';
 import { debounce } from 'lodash';
@@ -109,7 +109,7 @@ LoginPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   loading: makeSelectLoading(),
-  role: makeSelectRole(),
+  role: makeSelectRoleRoute(),
   isLoggin: makeSelectIsLoggin(),
 });
 

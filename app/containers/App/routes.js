@@ -6,7 +6,6 @@ import Report from 'containers/Report';
 import ViewReport from 'containers/Report/ViewReport';
 import React from 'react';
 import Order from '../Customer/Order';
-
 const routes = [
   {
     path: '/dashboard',
@@ -44,13 +43,13 @@ const routes = [
     component: ViewReport,
     show: 0,
   },
-  {
-    path: '', //Last route
-    name: 'NotFoundPage',
-    role: ['admin', 'member'],
-    exact: false,
-    component: NotFoundPage,
-    show: 0,
-  },
+  // {
+  //   path: '', //Last route
+  //   name: 'NotFoundPage',
+  //   role: ['admin', 'member'],
+  //   exact: false,
+  //   component: NotFoundPage,
+  //   show: 0,
+  // },
 ];
 export default routes;

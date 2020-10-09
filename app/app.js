@@ -52,7 +52,7 @@ if (token) {
   const decoded = jwt(token);
   const { exp } = decoded;
   if (new Date(exp * 1000) < Date.now()) {
-    console.log('blabla');
+    localStorage.removeItem('token');
   }
 }
 const render = messages => {

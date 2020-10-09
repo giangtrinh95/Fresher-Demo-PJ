@@ -45,6 +45,11 @@ const makeSelectIsLoggin = () =>
     selectGlobal,
     globalState => globalState.isLoggin,
   );
+const makeSelectAccessControl = () =>
+  createSelector(
+    selectGlobal,
+    globalState => globalState.AccessControl,
+  );
 export {
   selectGlobal,
   makeSelectUsername,
@@ -52,4 +57,5 @@ export {
   makeSelectLoading,
   makeSelectError,
   makeSelectIsLoggin,
+  makeSelectAccessControl,
 };

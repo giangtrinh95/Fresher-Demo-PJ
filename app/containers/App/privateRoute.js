@@ -4,12 +4,12 @@ import { Route, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectIsLoggin } from '../App/selectors';
-const PrivateRoute = ({ children, isLoggin, ...rest }) => {
+const PrivateRoute = ({ component: Component, isLoggin, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={() => {
-        return isLoggin ? children : <Redirect to="/login" />;
+      render={props => {
+        return isLoggin ? <Component {...props} /> : <Redirect to="/login" />;
       }}
     />
   );

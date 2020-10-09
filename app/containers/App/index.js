@@ -33,9 +33,12 @@ function App({ role }) {
     //filter
     result = dataRoute.map((route, index) => {
       return (
-        <Route key={route.name} path={route.path} exact={route.exact}>
-          <route.component />
-        </Route>
+        <PrivateRoute
+          key={index}
+          path={route.path}
+          exact={route.exact}
+          component={route.component}
+        />
       );
     });
     return result;
@@ -46,11 +49,7 @@ function App({ role }) {
         <Route exact path="/login">
           <LoginPage />
         </Route>
-        <PrivateRoute path="/">
-          <Layouts>
-            <Switch>{renderRoute()}</Switch>
-          </Layouts>
-        </PrivateRoute>
+        <Layouts>{renderRoute()}</Layouts>
       </Switch>
     </Router>
   );

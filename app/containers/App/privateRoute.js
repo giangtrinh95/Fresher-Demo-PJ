@@ -31,4 +31,7 @@ const withConnect = connect(
   mapStateToProps,
   null,
 );
-export default compose(withConnect, memo)(PrivateRoute);
+export default compose(
+  withConnect,
+  memo,
+)(PrivateRoute);

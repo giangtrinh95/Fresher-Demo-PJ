@@ -6,7 +6,7 @@ import Report from 'containers/Report';
 import ViewReport from 'containers/Report/ViewReport';
 import React from 'react';
 import Order from '../Customer/Order';
-import Setting from '../Setting';
+import Setting from 'containers/Setting';
 const routes = [
   {
     path: '/dashboard',
@@ -51,7 +51,7 @@ const routes = [
     exact: false,
     role: ['admin'],
     component: Setting,
-    show: 0,
+    show: 1,
   },
   // {
   //   path: '', //Last route

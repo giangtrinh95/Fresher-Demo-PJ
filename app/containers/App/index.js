@@ -44,9 +44,7 @@ function App({ role, getUserRoles }) {
         <Route exact path="/login">
           <LoginPage />
         </Route>
-        <Layouts>
-          <Switch>{renderRoute()}</Switch>
-        </Layouts>
+        <Layouts>{renderRoute()}</Layouts>
       </Switch>
     </Router>
   );

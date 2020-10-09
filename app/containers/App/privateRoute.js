@@ -5,14 +5,18 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { makeSelectIsLoggin } from '../App/selectors';
 const PrivateRoute = ({ component: Component, isLoggin, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        return isLoggin ? <Component {...props} /> : <Redirect to="/login" />;
-      }}
-    />
-  );
+  if (!isLoggin) {
+    return <Redirect to="/login" />;
+  } else {
+    return (
+      <Route
+        {...rest}
+        render={props => {
+          return isLoggin ? <Component {...props} /> : <Redirect to="/login" />;
+        }}
+      />
+    );
+  }
 };
 
 const mapStateToProps = createStructuredSelector({

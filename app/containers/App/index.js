@@ -20,7 +20,7 @@ function App({ role, getUserRoles }) {
   const dataRoute = useFilterMap(role);
 
   useEffect(() => {
-    const userRoles = localStorage.getItem('userRoles');
+    const userRoles = JSON.parse(localStorage.getItem('userRoles'));
     getUserRoles(userRoles);
   }, []);
   const renderRoute = () => {

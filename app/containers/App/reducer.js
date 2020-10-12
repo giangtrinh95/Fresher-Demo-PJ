@@ -12,8 +12,9 @@ import {
   LOGIN_FAILED,
   GET_CURRENT_USER,
   GET_CURRENT_USER_SUCCESS,
-  GET_SELECT_PERMISSIONS,
-  GET_SELECT_PERMISSIONS_SUCCESS,
+  GET_PERMISSIONS,
+  GET_PERMISSIONS_SUCCESS,
+  GET_PERMISSIONS_FAILED,
 } from './constants';
 export const initialState = {
   username: '',
@@ -22,42 +23,7 @@ export const initialState = {
   error: false,
   userRoles: [],
   role: '',
-  listRoles: [
-    {
-      role: 'admin',
-      permissions: [
-        {
-          module: 'Customer',
-          view: true,
-          update: true,
-          export: true,
-        },
-        {
-          module: 'Reports',
-          view: true,
-          update: true,
-          export: true,
-        },
-      ],
-    },
-    {
-      role: 'member',
-      permissions: [
-        {
-          module: 'Customer',
-          view: true,
-          update: false,
-          export: false,
-        },
-        {
-          module: 'Reports',
-          view: false,
-          update: true,
-          export: false,
-        },
-      ],
-    },
-  ],
+  listRoles: [],
   selectRoles: [],
 };
 
@@ -94,16 +60,22 @@ const appReducer = (state = initialState, action) =>
         // const
         draft.userRoles = userRole;
         break;
-      case GET_SELECT_PERMISSIONS:
-        // const
+      case GET_PERMISSIONS:
+        draft.loading = true;
         break;
-      case GET_SELECT_PERMISSIONS_SUCCESS:
+      case GET_PERMISSIONS_SUCCESS:
         const { roleSuccess } = action.payload;
-        const result = draft.listRoles.filter(
-          item => item.role === roleSuccess,
-        );
-        draft.selectRoles = result;
+        draft.loading = false;
+        draft.listRoles = roleSuccess;
         break;
+      case GET_PERMISSIONS_FAILED: {
+        const { error } = action.payload;
+        draft.error = error;
+        draft.loading = false;
+
+        break;
+      }
+
       case LOGOUT:
         localStorage.clear('token');
         draft.username = '';

@@ -5,8 +5,12 @@ import {
   LOGIN_FAILED,
   GET_CURRENT_USER,
   GET_CURRENT_USER_SUCCESS,
-  GET_SELECT_PERMISSIONS,
-  GET_SELECT_PERMISSIONS_SUCCESS,
+  GET_PERMISSIONS,
+  GET_PERMISSIONS_SUCCESS,
+  GET_PERMISSIONS_FAILED,
+  GET_CHECKBOX,
+  GET_CHECKBOX_SUCCESS,
+  GET_CHECKBOX_FAILED,
 } from './constants';
 
 export function login(data) {
@@ -46,19 +50,37 @@ export function getCurrentUserSuccess(userRole) {
     },
   };
 }
-export function getSelectPermissions(role) {
+export function getPermissions(role) {
   return {
-    type: GET_SELECT_PERMISSIONS,
+    type: GET_PERMISSIONS,
     payload: {
       role,
     },
   };
 }
-export function getSelectPermissionsSuccess(roleSuccess) {
+
+export function getCheckBox(value) {
   return {
-    type: GET_SELECT_PERMISSIONS_SUCCESS,
+    type: GET_CHECKBOX,
+    payload: {
+      value,
+    },
+  };
+}
+
+export function getPermissionsSuccess(roleSuccess) {
+  return {
+    type: GET_PERMISSIONS_SUCCESS,
     payload: {
       roleSuccess,
+    },
+  };
+}
+export function getPermissionsFailed(error) {
+  return {
+    type: GET_PERMISSIONS_FAILED,
+    payload: {
+      error,
     },
   };
 }

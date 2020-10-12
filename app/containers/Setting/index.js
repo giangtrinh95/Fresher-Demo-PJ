@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,35 +10,84 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
-  makeSelectRole,
   makeSelectuserRoles,
   makeSelectListRoles,
-  makeSelectRoles,
   makeSelectRoleRoute,
 } from '../App/selectors';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { getSelectPermissions } from '../App/actions';
+import { getCheckBox, getPermissions } from '../App/actions';
 import CheckBoxSetting from '../../components/CheckBox';
 import { useInjectSaga } from 'utils/injectSaga';
 import saga from './../App/saga';
 import useStyles from './style';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-function Setting({ roleRoute, selectRoles, selectRolePermissions }) {
+function Setting({ selectCheckBox, listRoles, selectRolePermissions }) {
   useInjectSaga({ key: 'global', saga });
   const classes = useStyles();
   const [role, setRole] = React.useState('');
+  const [moduleRoles, setModuleRoles] = useState([
+    {
+      module: 'Customer',
+      permissions: {
+        view: false,
+        update: false,
+        export: false,
+      },
+    },
+    {
+      module: 'Export',
+      permissions: {
+        view: false,
+        update: false,
+        export: false,
+      },
+    },
+  ]);
+  useEffect(() => {
+    if (listRoles.length > 0) {
+      setModuleRoles([...listRoles[0].moduleRoles]);
+    }
+  }, [listRoles]);
   const handleChange = event => {
     setRole(event.target.value);
     selectRolePermissions(event.target.value);
   };
 
+  const handleCheckBox = useCallback(
+    event => {
+      const name = event.target.name;
+      const value = event.target.value;
+      const check = event.target.checked;
+      moduleRoles.forEach(item => {
+        if (item.module === name) {
+          const permissionsKey = Object.keys(item.permissions);
+          if (permissionsKey[0] === value) {
+            item.permissions.view = check;
+          } else if (permissionsKey[1] === value) {
+            item.permissions.update = check;
+          } else {
+            item.permissions.export = check;
+          }
+        }
+      });
+      setModuleRoles([...moduleRoles]);
+    },
+    [moduleRoles],
+  );
+  const handleSubmitPermissions = () => {
+    console.log(listRoles);
+    selectCheckBox(moduleRoles);
+  };
   return (
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">Select Role</InputLabel>
+
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -60,10 +109,22 @@ function Setting({ roleRoute, selectRoles, selectRolePermissions }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            <CheckBoxSetting selectRoles={selectRoles} role={role} />
+            <CheckBoxSetting
+              moduleRoles={moduleRoles}
+              role={role}
+              handleChange={handleCheckBox}
+            />
           </TableBody>
         </Table>
       </TableContainer>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ marginTop: '10px' }}
+        onClick={handleSubmitPermissions}
+      >
+        Xác Nhận
+      </Button>
     </div>
   );
 }
@@ -71,11 +132,12 @@ function Setting({ roleRoute, selectRoles, selectRolePermissions }) {
 const mapStateToProps = createStructuredSelector({
   roleRoute: makeSelectRoleRoute(),
   userRoles: makeSelectuserRoles(),
-  selectRoles: makeSelectRoles(),
+  listRoles: makeSelectListRoles(),
 });
 const mapDispatchToProps = dispatch => {
   return {
-    selectRolePermissions: data => dispatch(getSelectPermissions(data)),
+    selectRolePermissions: data => dispatch(getPermissions(data)),
+    selectCheckBox: data => dispatch(getCheckBox(data)),
   };
 };
 const withConnect = connect(
